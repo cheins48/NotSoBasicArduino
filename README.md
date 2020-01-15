@@ -11,61 +11,61 @@
 
 ### -Code
 
-#include<Servo.h>
-int trigPin=2;
-int echoPin=3;
+-#include<Servo.h>
+-int trigPin=2;
+-int echoPin=3;
 
-long duration;
-int distance;
-Servo servo;
+-long duration;
+-int distance;
+-Servo servo;
 
-void setup()
-{
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  Serial.begin(9600);
-  servo.attach(9);
-}
+-void setup()
+-{
+  -pinMode(trigPin, OUTPUT);
+  -pinMode(echoPin, INPUT);
+  -Serial.begin(9600);
+  -servo.attach(9);
+-}
 
-void loop()
-{
-  for(int i=15;i<=165;i++)
-  {
-    servo.write(i);
-    delay(100);
-    distance=calculateDistance();
-     printDistance();
-  }
+-void loop()
+-{
+  -for(int i=15;i<=165;i++)
+  -{
+    -servo.write(i);
+    -delay(100);
+    -distance=calculateDistance();
+    - printDistance();
+  -}
 
-  for(int i=165;i>15;i--)
-  {
-    servo.write(i);
-    delay(100);
-    distance=calculateDistance();
- printDistance();
-  }
+  -for(int i=165;i>15;i--)
+  -{
+    -servo.write(i);
+    -delay(100);
+    -distance=calculateDistance();
+ -printDistance();
+  -}
 
-}
-int calculateDistance()
-{
-  digitalWrite(trigPin,LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin,HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin,LOW);
+-}
+-int calculateDistance()
+-{
+  -digitalWrite(trigPin,LOW);
+  -delayMicroseconds(2);
+ - digitalWrite(trigPin,HIGH);
+ - delayMicroseconds(10);
+  -digitalWrite(trigPin,LOW);
   
-  duration=pulseIn(echoPin,HIGH);
-  distance=duration*0.034/2;
-  return distance;
-}  
+  -duration=pulseIn(echoPin,HIGH);
+  -distance=duration*0.034/2;
+  -return distance;
+-}  
 
 
-void printDistance(){
-    Serial.print(i);
-    Serial.print(",");
-    Serial.print(distance);
-    Serial.println(".");
-}
+-void printDistance(){
+    -Serial.print(i);
+    -Serial.print(",");
+    -Serial.print(distance);
+    -Serial.println(".");
+-}
 -(this was NOT easy)
 
 ## What/I learned...
@@ -92,34 +92,34 @@ https://www.real.discount/offer/arduino-radar-step-by-step-guide/
  
  ### Code
  
-#include <NewPing.h>
-#include <Servo.h>
-Servo myservo;
-#define TRIGGER_PIN 7
-#define ECHO_PIN 6
-#define MAX_DISTANCE 200
+-#include <NewPing.h>
+-#include <Servo.h>
+-Servo myservo;
+-#define TRIGGER_PIN 7
+-#define ECHO_PIN 6
+-#define MAX_DISTANCE 200
 
-int cm = 0;
-NewPing myHCSR04(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+-int cm = 0;
+-NewPing myHCSR04(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
  
-void setup() {
- Serial.begin(9600);
- myservo.attach(9);
-} 
-void loop() {
-    cm = myHCSR04.ping_cm();
-     Serial.println(cm);
-     delay(50); 
-    if ( cm != 0 && cm < 150)
-  {
-    if (cm < 10) {
-      myservo.write(100);
-    }
-    if (cm > 10) {
-       myservo.write(80);
-    }
-  }
-}
+-void setup() {
+ -Serial.begin(9600);
+ -myservo.attach(9);
+-} 
+-void loop() {
+    -cm = myHCSR04.ping_cm();
+     -Serial.println(cm);
+     -delay(50); 
+    -if ( cm != 0 && cm < 150)
+  -{
+    -if (cm < 10) {
+      -myservo.write(100);
+    -}
+    -if (cm > 10) {
+       -myservo.write(80);
+    -}
+  -}
+-}
 
 -(see how much easyer it is?)
 
