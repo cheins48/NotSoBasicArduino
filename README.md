@@ -3,14 +3,11 @@
 ## Hello Functions
 
 <img src="https://hackster.imgix.net/uploads/attachments/208605/radar.jpg?auto=compress%2Cformat&w=900&h=675&fit=min" width="392px"/>
-
-# How to...
-
-https://create.arduino.cc/projecthub/ryujenny3/servo-motor-ultrasonic-sensor-f951fe
- https://howtomechatronics.com/projects/arduino-radar-project/
  
  ## What are Hello Functions?
  - A Hello Function is basic code for programming a Radar. You can use these functions to find the distance and location of an object.  I also used an ultrasonic sensor and a servo, so that the Sensor can swivle around to see whats next to it (but unfortunetly not behind).
+<img src="https://hackster.imgix.net/uploads/image/file/150528/IMG_20160407_141058.jpg?auto=compress%2Cformat&w=740&h=555&fit=max" width="392px"/>
+-look how cute it looks!
 
 ### -Code
 
@@ -37,11 +34,7 @@ void loop()
     servo.write(i);
     delay(100);
     distance=calculateDistance();
-    
-    Serial.print(i);
-    Serial.print(",");
-    Serial.print(distance);
-    Serial.println(".");
+     printDistance();
   }
 
   for(int i=165;i>15;i--)
@@ -49,12 +42,9 @@ void loop()
     servo.write(i);
     delay(100);
     distance=calculateDistance();
-    
-    Serial.print(i);
-    Serial.print(",");
-    Serial.print(distance);
-    Serial.println(".");
+ printDistance();
   }
+
 }
 int calculateDistance()
 {
@@ -62,19 +52,26 @@ int calculateDistance()
   delayMicroseconds(2);
   digitalWrite(trigPin,HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin,LOW); 
+  digitalWrite(trigPin,LOW);
+  
   duration=pulseIn(echoPin,HIGH);
   distance=duration*0.034/2;
   return distance;
 }  
 
-<img src="https://hackster.imgix.net/uploads/image/file/150528/IMG_20160407_141058.jpg?auto=compress%2Cformat&w=740&h=555&fit=max" width="392px"/>
+
+void printDistance(){
+    Serial.print(i);
+    Serial.print(",");
+    Serial.print(distance);
+    Serial.println(".");
+}
+-(this was NOT easy)
 
 ## What/I learned...
- 
- * This assignment teaches you how to use a ultra-sonic sencor and a servo.
- * I learned how to create a simple radar and now know certain things that it's used for.
- * I learned how to calculate distance so if it gets to a certain distance from something, it could react to it.
+  * I learned how to calculate distance so if it gets to a certain distance from something.
+ * I learned how to create an ultrasonic radar.
+*This assignment teaches you how to use an ultra-sonic sencor and a servo.
  *this assignment also gave me and my group the inspiration for THOMAS THE DANK TANK.
  __________________________________________________________________________________________________________________________________
  
@@ -85,6 +82,7 @@ int calculateDistance()
  # How to
 
 https://www.real.discount/offer/arduino-radar-step-by-step-guide/
+-mr.H and dylan helped
  
  ## What is NewPing.()?
   - New Ping() is a code you can use to simplify things like a hello function, or any funtion for that matter
@@ -94,32 +92,35 @@ https://www.real.discount/offer/arduino-radar-step-by-step-guide/
  
  ### Code
  
- #include <Servo.h>
-
 #include <NewPing.h>
+#include <Servo.h>
+Servo myservo;
+#define TRIGGER_PIN 7
+#define ECHO_PIN 6
+#define MAX_DISTANCE 200
 
-const int ServoPin = 9;
-const int TriggerPin = 3;
-const int EchoPin = 2;
-
-// 100 = maxDistance
-NewPing  sonar(TriggerPin, EchoPin, 100);
-Servo servo;
-
+int cm = 0;
+NewPing myHCSR04(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+ 
 void setup() {
-  Serial.begin(9600);
-    servo.attach(ServoPin);
+ Serial.begin(9600);
+ myservo.attach(9);
+} 
+void loop() {
+    cm = myHCSR04.ping_cm();
+     Serial.println(cm);
+     delay(50); 
+    if ( cm != 0 && cm < 150)
+  {
+    if (cm < 10) {
+      myservo.write(100);
+    }
+    if (cm > 10) {
+       myservo.write(80);
+    }
+  }
 }
 
-void loop(){
-    int cm = sonar.ping_cm();
-  Serial.println(cm);
-
-int angle = map(cm, 2, 15, 15, 165 )
-  servo.write(angle);
-
-    delay(60);
-}
 -(see how much easyer it is?)
 
 <img src="https://hackster.imgix.net/uploads/attachments/208605/radar.jpg?auto=compress%2Cformat&w=900&h=675&fit=min" width="392px"/>
@@ -127,8 +128,11 @@ int angle = map(cm, 2, 15, 15, 165 )
 
 ## What/I Learned...
 
-* This assignment is a simpler hello functions but everytime the ultra S. reads someone or something, the servo goes the other direction.
-* I learned that NewPing() can be used to simplify codes for me.
+*before this assighnment I really didnt understand functions, but thinking of newping as a library and a funtion as a book really helped me out
+*OH MY GOD ARDUINO IS SO MUUCH EASER
 
 
 __________________________________________________________________________________________________________________________________
+-PS
+-credit to dylan for images and code (we made all the assighnments together)
+-https://github.com/dhensle63/NotSoBasicArduino/blob/master/README.md
