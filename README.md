@@ -11,6 +11,7 @@
 
 ### -Code
 
+```C
 -#include<Servo.h>
 -int trigPin=2;
 -int echoPin=3;
@@ -67,6 +68,8 @@
     -Serial.println(".");
 -}
 -(this was NOT easy)
+```
+
 
 ## What/I learned...
   * I learned how to calculate distance so if it gets to a certain distance from something.
@@ -91,7 +94,7 @@ https://www.real.discount/offer/arduino-radar-step-by-step-guide/
   
  
  ### Code
- 
+ ```c
 -#include <NewPing.h>
 -#include <Servo.h>
 -Servo myservo;
@@ -120,7 +123,7 @@ https://www.real.discount/offer/arduino-radar-step-by-step-guide/
     -}
   -}
 -}
-
+```
 -(see how much easyer it is?)
 
 <img src="https://hackster.imgix.net/uploads/attachments/208605/radar.jpg?auto=compress%2Cformat&w=900&h=675&fit=min" width="392px"/>
